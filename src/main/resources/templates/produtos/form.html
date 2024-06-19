@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+<head th:replace="~{fragments/head :: head(~{})}">
+
+    <title>Produtos</title>
+
+</head>
+
+<body>
+<main class="conteiner">
+    <div class="container">
+    <h1>Cadastro de Produtos</h1>
+
+        <form class="container" th:action="${produto.id == null} ? @{/produtos/save} : @{/produtos/update}" th:object="${produto}"
+            method="post">
+
+            <div class="mb-3 ">
+                <input type="hidden" th:field="*{id}">
+            </div>
+
+            <div class="mb-3">
+                <label for="ipuntDescricao" class="form-label">Descricao</label>
+                <input class="form-control" type="text" id="ipuntDescricao" th:field="*{descricao}" placeholder="Ex: Notebook">
+            </div>
+
+            <div class="mb-3">
+                <label for="ipuntvaloralor" class="form-label">Valor</label>
+                <input class="form-control" type="text" id="ipuntvaloralor" th:field="*{valor}" placeholder="Ex: 2000.00">
+            </div>
+
+            <div class="mb-3">
+                <input class="button" type="submit" value="Enviar">
+            </div>
+        </form>
+    </div>
+    </main>
+    </body>
+
+    </html>

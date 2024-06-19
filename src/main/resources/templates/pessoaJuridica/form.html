@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head>
+    <meta charset="UTF-8" th:replace="~{fragments/head :: head(~{})}">
+    <title>Produtos</title>
+
+</head>
+
+<body>
+<main class="conteiner">
+    <h1>Form Pessoa JP</h1>
+    <form class="container" th:action="${pessoaJuridica.id == null} ? @{/pessoaJuridica/save} : @{/pessoaJuridica/update}" th:object="${pessoaJuridica}"
+          method="post">
+
+        <div class="mb-3 ">
+            <input type="hidden" th:field="*{id}">
+        </div>
+
+        <div class="mb-3">
+            <label for="ipuntNome" class="form-label">Nome</label>
+            <input class="form-control" type="text" id="ipuntNome" th:field="*{nome}" placeholder="Ex: SPI Software">
+        </div>
+
+        <div class="mb-3">
+            <label for="ipuntTelefone" class="form-label">Telefone</label>
+            <input class="form-control" type="text" id="ipuntTelefone" th:field="*{telefone}" placeholder="Ex: 32324522">
+        </div>
+
+        <div class="mb-3">
+            <label for="ipuntCnpj" class="form-label">Cnpj</label>
+            <input class="form-control" type="text" id="ipuntCnpj" th:field="*{cnpj}" placeholder="Ex: 00.000.000/0001-00">
+        </div>
+
+        <div class="mb-3">
+            <input class="button" type="submit" value="Enviar">
+        </div>
+    </form>
+
+
+</main>
+</body>
+
+</html>

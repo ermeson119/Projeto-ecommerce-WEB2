@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{})}">
+    <title>Produtos</title>
+</head>
+
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<main class="conteiner" >
+
+  <form class="container" th:action="${pessoaFisica.id == null} ? @{/pessoaFisica/save} : @{/pessoaFisica/update}" th:object="${pessoaFisica}" method="post">
+      <div class="mb-3 ">
+          <input type="hidden" th:field="*{id}">
+      </div>
+
+      <div class="mb-3">
+          <label for="ipuntNome" class="form-label">Nome</label>
+          <input  class="form-control" type="text" id="ipuntNome" th:field="*{nome}" placeholder="Ex: Ermeson Balbinot">
+      </div>
+
+      <div class="mb-3">
+          <label for="ipuntTelefone" class="form-label">Telefone</label>
+          <input class="form-control" type="text" id="ipuntTelefone" th:field="*{telefone}" placeholder="Ex: (63)981201914">
+      </div>
+
+      <div class="mb-3">
+          <label for="ipuntCpf" class="form-label">Cpf</label>
+          <input class="form-control" type="text" id="ipuntCpf" th:field="*{cpf}" placeholder="Ex: 000.000.000-00">
+      </div>
+
+      <div class="mb-3">
+          <input class="button" type="submit" value="Enviar">
+      </div>
+
+   </form>
+
+
+</main>
+
+</body>
+
+</html>

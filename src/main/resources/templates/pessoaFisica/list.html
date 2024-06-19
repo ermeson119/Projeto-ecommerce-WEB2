@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+<head th:replace="~{fragments/head :: head(~{})}">
+    <title>Lista de Produtos</title>
+
+</head>
+<body>
+<main class="conteiner">
+    <div class="container">
+        <h3>Lista de Pessoa Fisicas</h3>
+
+        <form th:action="@{/pessoaFisica/buscar}" method="post" class="d-flex" role="search">
+            <input class="form-control me-2" th:name="nomebusca" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+
+        <table class="table" border="1" style="border-collapse: collapse">
+            <thead>
+
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Cpf</th>
+                <th colspan="2">Ações</th>
+            </tr>
+            </thead>
+            <tr th:each="pessoafisica : ${pessoaFisica}">
+                <td th:text="${pessoafisica.id}"> </td>
+                <td th:text="${pessoafisica.nome}"> </td>
+                <td th:text="${pessoafisica.telefone}"> </td>
+                <td th:text="${pessoafisica.cpf}"> </td>
+                <td><a th:href="@{/pessoaFisica/edit/{id}(id=${pessoafisica.id})}">Editar</a></td>
+                <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"
+                        th:href="@{/pessoaFisica/remove/{id}(id=${pessoafisica.id})}">Excluir</a> </td>
+            </tr>
+
+        </table>
+        <div class="div-button">
+            <button><a href="/pessoaFisica/form" style="text-decoration: none">Adicionar pessoa Fisica</a></button>
+        </div>
+    </div>
+
+</main>
+
+</body>
+</html>

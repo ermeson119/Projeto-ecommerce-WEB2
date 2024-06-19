@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+<head th:replace="~{fragments/head :: head(~{})}">
+    <title>Lista de Produtos</title>
+
+</head>
+<body>
+<main class="conteiner">
+    <div class="container">
+            <h3>Minha compra</h3>
+            <table class="table" border="1" style="border-collapse: collapse">
+                <thead>
+
+                <tr>
+                    <th>Id</th>
+                    <th>Data</th>
+                    <th>ValorTotal</th>
+                    <th>Nome</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td th:text="${venda.id}"> </td>
+                    <td th:text="${venda.dataHora}"> </td>
+                    <td th:text="${venda.getTotalFinal()}"> </td>
+                    <td th:text="${venda.getPessoa().getNome()}"> </td>
+
+                </tr>
+
+            </table>
+
+            <br>
+            <br>
+            <hr>
+            <br>
+
+
+            <h3>Meu carrinho</h3>
+        <table class="table" border="1" style="border-collapse: collapse">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Quantidade</th>
+                <th>ValorTotal</th>
+
+            </tr>
+            </thead>
+            <tr th:each="item : ${venda.getItemVendas()}">
+                <td th:text="${item.id}"> </td>
+                <td th:text="${item.produto.descricao}"> </td>
+                <td th:text="${item.produto.valor}"> </td>
+                <td th:text="${item.quantidade}"> </td>
+                <td th:text="${item.total}"> </td>
+
+            </tr>
+
+        </table>
+
+
+    </div>
+</main>
+</body>
+</html>

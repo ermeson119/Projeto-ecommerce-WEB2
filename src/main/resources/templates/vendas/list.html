@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+<head th:replace="~{fragments/head :: head(~{})}">
+    <title>Lista de Produtos</title>
+
+</head>
+<body>
+<main class="conteiner">
+    <div class="container">
+        <h3>Lista de Compras do Sistema</h3>
+        <table class="table" border="1" style="border-collapse: collapse">
+            <thead>
+
+            <tr>
+                <th>Id</th>
+                <th>Data</th>
+                <th>ValorTotal</th>
+                <th>detalhes</th>
+                <th>nome</th>
+            </tr>
+            </thead>
+            <tr th:each="venda : ${vendas}">
+                <td th:text="${venda.id}"> </td>
+                <td th:text="${venda.dataHora}"> </td>
+                <td th:text="${venda.getTotalFinal()}"> </td>
+                <td><a th:href="@{/vendas/{id}(id=${venda.id})}">detalhes</a></td>
+                <td th:text="${venda.getPessoa().nome}"> </td>
+            </tr>
+
+        </table>
+
+    </div>
+</main>
+</body>
+</html>
