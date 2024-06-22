@@ -28,7 +28,11 @@ public class ProdutoController {
         return new ModelAndView("/produtos/list", model);  //caminho da view
     }
 
-
+    @GetMapping("/area-compra")
+    public ModelAndView listProdutos(ModelMap model){
+        model.addAttribute("produtos", repository.produtos());
+        return new ModelAndView("/produtos/area-compra-client");
+    }
 
     @PostMapping("/save")
     public ModelAndView save(Produto produto){

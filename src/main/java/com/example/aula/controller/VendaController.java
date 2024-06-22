@@ -1,6 +1,5 @@
 package com.example.aula.controller;
 
-import com.example.aula.model.entity.ItemVenda;
 import com.example.aula.model.entity.Produto;
 import com.example.aula.model.entity.Venda;
 import com.example.aula.model.repository.VendaRepository;
@@ -32,7 +31,7 @@ public class VendaController {
     public ModelAndView produtosAdd(Produto produto){
         venda.getProdutos().add(produto);
         produto.setVenda(venda);
-        return new ModelAndView("redirect:/vendas/carrinholista");
+        return new ModelAndView("redirect:/produtos/area-compra-client");
     }
 
     @PostMapping("/save")
@@ -40,29 +39,8 @@ public class VendaController {
         this.venda.setDataHora(LocalDate.now());
         this.vendaRepository.save(this.venda);
         session.invalidate();
-        return new ModelAndView("redirect:/carrinho/carrinho-list");
+        return new ModelAndView("redirect:/vendas/carrinho-list");
     }
-
-
-
-
-    @GetMapping("/form-carrinho")
-    public ModelAndView listarCarrinho(ModelMap model) {
-        // Aqui você obtém os itens da venda do repositório
-        List<Produto> produtos = vendaRepository.obterProdutos();
-
-        // Adiciona os itens da venda ao modelo
-        model.addAttribute("produtos", produtos);
-
-        // Retorna a ModelAndView apontando para a página onde os itens do carrinho serão exibidos
-        return new ModelAndView("/carrinho/carrinholista", model);
-    }
-
-
-
-
-
-
 
 
 
