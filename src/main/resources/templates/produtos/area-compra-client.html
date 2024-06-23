@@ -11,26 +11,23 @@
         <h3 class="text-center">ÁREA DE COMPRA</h3>
 
 
-        <table class="table" border="1" style="border-collapse: collapse">
-            <thead>
-            <tr>
-                <th class="text-center">Produto</th>
-                <th class="text-center">Total</th>
-                <th class="text-center">Ação</th>
 
-            </tr>
-            </thead>
-            <tr th:each="itensVendas : ${produtos}">
-                <td th:text="${itensVendas.getDescricao()}" class="text-center"> </td>
-                <td th:text="${itensVendas.getValor()}" class="text-center"> </td>
-                <td>
-                    <div class="text-center">
-                        <button class="btn btn-primary"><a href="/produtos/form" style="text-decoration: none; color: #ffffff" >Adicionar Produto</a></button>
-                    </div>
-                </td>
-            </tr>
-
-        </table>
+            <table class="table" border="1" style="border-collapse: collapse">
+                <thead>
+                <tr>
+                    <th class="text-center">Id</th>
+                    <th class="text-center">Descrição</th>
+                    <th class="text-center">Valor</th>
+                    <th colspan="2" class="text-center">Ações</th>
+                </tr>
+                </thead>
+                <tr th:each="produto : ${produtos}">
+                    <td th:text="${produto.id}" class="text-center"> </td>
+                    <td th:text="${produto.descricao}" class="text-center"> </td>
+                    <td th:text="${produto.valor}" class="text-center"> </td>
+                    <td class="text-center"><a th:href="@{/vendas/produto/add/{id}(id=${produto.getId()})}" class="btn btn-primary">Adicionar no Carrinho</a></td>
+                </tr>
+            </table>
 
 
     </div>

@@ -13,19 +13,19 @@
             <thead>
 
             <tr>
-                <th>Id</th>
-                <th>Data</th>
-                <th>ValorTotal</th>
-                <th>detalhes</th>
-                <th>nome</th>
+                <th class="text-center">Id</th>
+                <th class="text-center">Data</th>
+                <th class="text-center">ValorTotal</th>
+                <th class="text-center">detalhes</th>
+                <th class="text-center">nome</th>
             </tr>
             </thead>
             <tr th:each="venda : ${vendas}">
-                <td th:text="${venda.id}"> </td>
-                <td th:text="${venda.dataHora}"> </td>
-                <td th:text="${venda.getTotalFinal()}"> </td>
-                <td><a th:href="@{/vendas/{id}(id=${venda.id})}">detalhes</a></td>
-                <td th:text="${venda.getPessoa().nome}"> </td>
+                <td th:text="${venda.id}" class="text-center"> </td>
+                <td th:text="${venda.dataHora}" class="text-center"> </td>
+                <td th:text="${venda.getTotalFinal()}" class="text-center"> </td>
+                <td class="text-center"><a th:href="@{/vendas/{id}(id=${venda.id})}" class="btn btn-primary">detalhes</a></td>
+                <td th:text="${venda.getPessoa().nome}" class="text-center"> </td>
             </tr>
 
         </table>

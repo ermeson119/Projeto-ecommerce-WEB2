@@ -1,7 +1,9 @@
 package com.example.aula.controller;
 
+import com.example.aula.model.entity.ItemVenda;
 import com.example.aula.model.entity.Produto;
 import com.example.aula.model.entity.Venda;
+import com.example.aula.model.repository.ProdutoRepository;
 import com.example.aula.model.repository.VendaRepository;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -27,11 +29,42 @@ public class VendaController {
     @Autowired
     private Venda venda; //O spring vai criar o objeto na session
 
-    @PostMapping("produto/add")
-    public ModelAndView produtosAdd(Produto produto){
-        venda.getProdutos().add(produto);
-        produto.setVenda(venda);
-        return new ModelAndView("redirect:/produtos/area-compra-client");
+    @Autowired
+    private ProdutoRepository produtoRepository;
+
+    @GetMapping("produto/add/{id}")
+    public ModelAndView produtoAdd(@PathVariable("id") Long produtoId){
+        List<ItemVenda> itensVenda = venda.getItemVendas();
+
+        if (itensVenda.isEmpty()) {
+            Produto produto = produtoRepository.produto(produtoId);
+            ItemVenda itemNovo = new ItemVenda();
+            itemNovo.setProduto(produto);
+            itemNovo.setQuantidade(1);
+
+            itensVenda.add(itemNovo);
+            itemNovo.setVenda(venda);
+        } else {
+            int cont = 0;
+            for (ItemVenda itemVenda : itensVenda) {
+                cont++;
+                if (itemVenda.getProduto().getId().equals(produtoId)) {
+                    itemVenda.setQuantidade(itemVenda.getQuantidade() + 1);
+                    break;
+                } else if(itensVenda.size() == cont) { // Se chegar na ultima posição da lista, então ainda não existe
+                    Produto produto = produtoRepository.produto(produtoId);
+                    ItemVenda itemNovo = new ItemVenda();
+                    itemNovo.setProduto(produto);
+                    itemNovo.setQuantidade(1);
+
+                    itensVenda.add(itemNovo);
+                    itemNovo.setVenda(venda);
+                    break;
+                }
+            }
+        }
+
+        return new ModelAndView("redirect:/produtos/area-compra");
     }
 
     @PostMapping("/save")
@@ -43,6 +76,11 @@ public class VendaController {
     }
 
 
+    // - VENDAS/CARRINHO
+    @GetMapping("/carrinho")
+    public String carrinholista(Venda venda, ItemVenda itemVenda){
+        return "/vendas/carrinho";
+    }
 
 
 

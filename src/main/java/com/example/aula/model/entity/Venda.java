@@ -20,14 +20,12 @@ public class Venda  implements Serializable {
     private java.lang.Long Id;
     private LocalDate dataHora;
 
-    @OneToMany(mappedBy = "venda")
-    private List<ItemVenda> itemVendas;
+    @OneToMany(mappedBy = "venda",cascade = CascadeType.ALL)
+    private List<ItemVenda> itemVendas = new ArrayList<>();
 
     @ManyToOne
     private Pessoa pessoa;
 
-    @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
-    private List<Produto> produtos = new ArrayList<>();
 
     public List<ItemVenda> getItemVendas() {
         return itemVendas;
@@ -70,11 +68,5 @@ public class Venda  implements Serializable {
         this.pessoa = pessoa;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
-    }
 }

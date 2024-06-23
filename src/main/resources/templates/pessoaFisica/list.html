@@ -18,26 +18,26 @@
             <thead>
 
             <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>Cpf</th>
-                <th colspan="2">Ações</th>
+                <th class="text-center">Id</th>
+                <th class="text-center">Nome</th>
+                <th class="text-center">Telefone</th>
+                <th class="text-center">Cpf</th>
+                <th colspan="2" class="text-center">Ações</th>
             </tr>
             </thead>
             <tr th:each="pessoafisica : ${pessoaFisica}">
-                <td th:text="${pessoafisica.id}"> </td>
-                <td th:text="${pessoafisica.nome}"> </td>
-                <td th:text="${pessoafisica.telefone}"> </td>
-                <td th:text="${pessoafisica.cpf}"> </td>
-                <td><a th:href="@{/pessoaFisica/edit/{id}(id=${pessoafisica.id})}">Editar</a></td>
-                <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"
-                        th:href="@{/pessoaFisica/remove/{id}(id=${pessoafisica.id})}">Excluir</a> </td>
+                <td th:text="${pessoafisica.id}" class="text-center"> </td>
+                <td th:text="${pessoafisica.nome}" class="text-center"> </td>
+                <td th:text="${pessoafisica.telefone}" class="text-center"> </td>
+                <td th:text="${pessoafisica.cpf}" class="text-center"> </td>
+                <td class="text-center"><a th:href="@{/pessoaFisica/edit/{id}(id=${pessoafisica.id})}" class="btn btn-primary">Editar</a></td>
+                <td class="text-center"> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"
+                        th:href="@{/pessoaFisica/remove/{id}(id=${pessoafisica.id})}" class="btn btn-primary">Excluir</a> </td>
             </tr>
 
         </table>
         <div class="div-button">
-            <button><a href="/pessoaFisica/form" style="text-decoration: none">Adicionar pessoa Fisica</a></button>
+            <button class="btn btn-primary"><a href="/pessoaFisica/form" style="text-decoration: none; color:#ffffff; border: none" class="btn btn-primary">Adicionar pessoa Fisica</a></button>
         </div>
     </div>
 

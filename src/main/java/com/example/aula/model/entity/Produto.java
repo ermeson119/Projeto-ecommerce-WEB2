@@ -14,7 +14,7 @@ import java.math.BigDecimal;
     private Long id;
     private String descricao;
     private BigDecimal valor;
-    private Venda venda;
+
 
     public Long getId() {
         return id;
@@ -40,11 +40,5 @@ import java.math.BigDecimal;
         this.valor = valor;
     }
 
-    public Venda getVenda() {
-        return venda;
-    }
-
-    public void setVenda(Venda venda) {
-        this.venda = venda;
-    }
+    
 }

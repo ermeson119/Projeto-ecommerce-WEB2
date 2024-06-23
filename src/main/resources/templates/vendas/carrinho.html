@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+<head th:replace="~{fragments/head :: head(~{})}">
+    <title>Inserir de Produtos ao carrinho</title>
+
+</head>
+<body>
+<main class="conteiner">
+    <div class="container">
+        <h3 class="text-center">Lista de itens no Carrinho</h3>
+
+
+        <div class="container">
+
+            <table class="table" border="1" style="border-collapse: collapse">
+                <thead>
+                <tr>
+                    <th class="text-center">Descrição</th>
+                    <th class="text-center">Quantidade</th>
+                    <th class="text-center">Valor Unitario</th>
+                    <th class="text-center">Valor Total</th>
+                </tr>
+                </thead>
+                <tr th:each="carrinho : ${session.venda.itemVendas}">
+                    <td th:text="${carrinho.getProduto().getDescricao()}" class="text-center"> </td>
+                    <td th:text="${carrinho.getQuantidade()}" class="text-center"></td>
+                    <td th:text="${carrinho.getProduto().getValor()}" class="text-center"></td>
+                    <td th:text="${carrinho.getTotal()}" class="text-center"></td>
+                </tr>
+            </table>
+
+    </div>
+</main>
+</body>
+</html>

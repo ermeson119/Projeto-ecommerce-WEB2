@@ -13,17 +13,17 @@
                 <thead>
 
                 <tr>
-                    <th>Id</th>
-                    <th>Data</th>
-                    <th>ValorTotal</th>
-                    <th>Nome</th>
+                    <th class="text-center">Id</th>
+                    <th class="text-center">Data</th>
+                    <th class="text-center">ValorTotal</th>
+                    <th class="text-center">Nome</th>
                 </tr>
                 </thead>
                 <tr>
-                    <td th:text="${venda.id}"> </td>
-                    <td th:text="${venda.dataHora}"> </td>
-                    <td th:text="${venda.getTotalFinal()}"> </td>
-                    <td th:text="${venda.getPessoa().getNome()}"> </td>
+                    <td th:text="${venda.id}" class="text-center"> </td>
+                    <td th:text="${venda.dataHora}" class="text-center"> </td>
+                    <td th:text="${venda.getTotalFinal()}" class="text-center"> </td>
+                    <td th:text="${venda.getPessoa().getNome()}" class="text-center"> </td>
 
                 </tr>
 
@@ -39,20 +39,20 @@
         <table class="table" border="1" style="border-collapse: collapse">
             <thead>
             <tr>
-                <th>Id</th>
-                <th>Descrição</th>
-                <th>Valor</th>
-                <th>Quantidade</th>
-                <th>ValorTotal</th>
+                <th class="text-center">Id</th>
+                <th class="text-center">Descrição</th>
+                <th class="text-center">Valor</th>
+                <th class="text-center">Quantidade</th>
+                <th class="text-center">ValorTotal</th>
 
             </tr>
             </thead>
-            <tr th:each="item : ${venda.getItemVendas()}">
-                <td th:text="${item.id}"> </td>
-                <td th:text="${item.produto.descricao}"> </td>
-                <td th:text="${item.produto.valor}"> </td>
-                <td th:text="${item.quantidade}"> </td>
-                <td th:text="${item.total}"> </td>
+            <tr th:each="item : ${venda.getItemVendas()}" class="text-center">
+                <td th:text="${item.id}" class="text-center"> </td>
+                <td th:text="${item.produto.descricao}" class="text-center"> </td>
+                <td th:text="${item.produto.valor}" class="text-center"> </td>
+                <td th:text="${item.quantidade}" class="text-center"> </td>
+                <td th:text="${item.total}" class="text-center"> </td>
 
             </tr>
 

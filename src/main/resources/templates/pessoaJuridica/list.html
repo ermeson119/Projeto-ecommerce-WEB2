@@ -20,27 +20,27 @@
             <thead>
 
             <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>Cpf</th>
-                <th colspan="2">Ações</th>
+                <th class="text-center">Id</th>
+                <th class="text-center">Nome</th>
+                <th class="text-center">Telefone</th>
+                <th class="text-center">Cpf</th>
+                <th colspan="2" class="text-center">Ações</th>
             </tr>
             </thead>
             <tr th:each="pessoajuridica : ${pessoaJuridica}">
-                <td th:text="${pessoajuridica.id}"> </td>
-                <td th:text="${pessoajuridica.nome}"> </td>
-                <td th:text="${pessoajuridica.telefone}"> </td>
-                <td th:text="${pessoajuridica.cnpj}"> </td>
-                <td><a th:href="@{/pessoaJuridica/edit/{id}(id=${pessoajuridica.getId()})}">Editar</a></td>
-                <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"
-                        th:href="@{/pessoaJuridica/remove/{id}(id=${pessoajuridica.getId()})}">Excluir</a> </td>
+                <td th:text="${pessoajuridica.id}" class="text-center"> </td>
+                <td th:text="${pessoajuridica.nome}" class="text-center"> </td>
+                <td th:text="${pessoajuridica.telefone}" class="text-center"> </td>
+                <td th:text="${pessoajuridica.cnpj}" class="text-center"> </td>
+                <td class="text-center"><a th:href="@{/pessoaJuridica/edit/{id}(id=${pessoajuridica.getId()})}" class="btn btn-primary">Editar</a></td>
+                <td class="text-center"> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"
+                        th:href="@{/pessoaJuridica/remove/{id}(id=${pessoajuridica.getId()})}" class="btn btn-primary">Excluir</a> </td>
             </tr>
 
 
         </table>
         <div class="div-button">
-            <button><a href="/pessoaJuridica/form" style="text-decoration: none">Adicionar pessoa Juridica</a></button>
+            <button class="btn btn-primary"><a href="/pessoaJuridica/form" style="text-decoration: none; color: #ffffff;border: none">Adicionar pessoa Juridica</a></button>
         </div>
     </div>
 </main>
