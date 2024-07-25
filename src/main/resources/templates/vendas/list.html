@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
-<head th:replace="~{fragments/head :: head(~{})}">
-    <title>Lista de Produtos</title>
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+    <title>Lista de Vendas</title>
 
 </head>
 <body>

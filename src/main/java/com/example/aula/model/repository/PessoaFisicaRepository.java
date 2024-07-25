@@ -31,10 +31,18 @@ public class PessoaFisicaRepository {
     }
 
     public List<PessoaFisica> buscarpessoaFisica(String nome){
-        Query query = em.createQuery("from PessoaFisica where nome like :nome");
-        query.setParameter("nome", "%"+nome+"%");
+        String nomeFormated = nome.toLowerCase();
+        Query query = em.createQuery("from PessoaFisica where LOWER(nome) like :nome");
+        query.setParameter("nome", "%"+nomeFormated+"%");
         return query.getResultList();
     }
+
+    public PessoaFisica buscarPorCpf(String cpf) {
+        Query query = em.createQuery("from PessoaFisica where cpf = :cpf");
+        query.setParameter("cpf", cpf);
+        return (PessoaFisica) query.getResultList().stream().findFirst().get();
+    }
+
 
     public void remove(Long id){
         PessoaFisica pessoaFisica = em.find(PessoaFisica.class, id);

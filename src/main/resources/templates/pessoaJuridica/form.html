@@ -2,19 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
       th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
 
-<head>
-    <meta charset="UTF-8" th:replace="~{fragments/head :: head(~{})}">
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+
     <title>Produtos</title>
 
 </head>
 
 <body>
 <main class="conteiner">
+    <div class="container">
     <h1>Form Pessoa JP</h1>
     <form class="container" th:action="${pessoaJuridica.id == null} ? @{/pessoaJuridica/save} : @{/pessoaJuridica/update}" th:object="${pessoaJuridica}"
           method="post">
 
-        <div class="mb-3 ">
+        <div class="mb-3">
             <input type="hidden" th:field="*{id}">
         </div>
 
@@ -30,14 +31,14 @@
 
         <div class="mb-3">
             <label for="ipuntCnpj" class="form-label">Cnpj</label>
-            <input class="form-control" type="text" id="ipuntCnpj" th:field="*{cnpj}" placeholder="Ex: 00.000.000/0001-00">
+            <input class="form-control" type="text" id="ipuntCnpj" th:field="*{cnpj}" placeholder="Ex: 00000000222133" minlength="14" maxlength="14">
         </div>
 
         <div class="mb-3">
             <input class="button" type="submit" value="Enviar">
         </div>
     </form>
-
+    </div>
 
 </main>
 </body>

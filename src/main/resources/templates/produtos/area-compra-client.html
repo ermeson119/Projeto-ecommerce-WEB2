@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
-<head th:replace="~{fragments/head :: head(~{})}">
-    <title>Inserir de Produtos ao carrinho</title>
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+    <title>Área de Compra</title>
 
 </head>
 <body>
 <main class="conteiner">
     <div class="container">
         <h3 class="text-center">ÁREA DE COMPRA</h3>
-
-
-
+            
             <table class="table" border="1" style="border-collapse: collapse">
                 <thead>
                 <tr>
@@ -25,7 +23,7 @@
                     <td th:text="${produto.id}" class="text-center"> </td>
                     <td th:text="${produto.descricao}" class="text-center"> </td>
                     <td th:text="${produto.valor}" class="text-center"> </td>
-                    <td class="text-center"><a th:href="@{/vendas/produto/add/{id}(id=${produto.getId()})}" class="btn btn-primary">Adicionar no Carrinho</a></td>
+                    <td class="text-center"><a th:href="@{/vendas/produto/add/{id}(id=${produto.id})}" class="btn btn-primary bg-success border border-success">Adicionar</a></td>
                 </tr>
             </table>
 

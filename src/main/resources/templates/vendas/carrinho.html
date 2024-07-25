@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
-<head th:replace="~{fragments/head :: head(~{})}">
-    <title>Inserir de Produtos ao carrinho</title>
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+    <title>Inserir Produtos ao carrinho</title>
 
 </head>
 <body>
@@ -10,27 +10,61 @@
     <div class="container">
         <h3 class="text-center">Lista de itens no Carrinho</h3>
 
+        <form th:action="@{/vendas/save}" class="text-center" method="post">
+
+            <select class="form-control me-2 mb-4" name="pessoaId">
+                <optgroup label="Pessoa Juridica">
+
+                    <option th:each="pessoaJuridica : ${pj}" th:value="${pessoaJuridica.id}"
+                            th:label="${pessoaJuridica.getNome()}"></option>
+
+                </optgroup>
+                <optgroup label="Pessoa Fisica">
+
+                    <option th:each="pessoaFisica : ${pf}" th:value="${pessoaFisica.id}"
+                            th:label="${pessoaFisica.getNome()}"></option>
+
+                </optgroup>
+            </select>
+            <input type="submit" class="btn btn-primary m-auto mb-4 px-4" value="Save">
+
+        </form>
 
         <div class="container">
 
             <table class="table" border="1" style="border-collapse: collapse">
                 <thead>
                 <tr>
+                    <th class="text-center">Index</th>
                     <th class="text-center">Descrição</th>
                     <th class="text-center">Quantidade</th>
                     <th class="text-center">Valor Unitario</th>
                     <th class="text-center">Valor Total</th>
+                    <th class="text-center">Ações</th>
                 </tr>
                 </thead>
-                <tr th:each="carrinho : ${session.venda.itemVendas}">
-                    <td th:text="${carrinho.getProduto().getDescricao()}" class="text-center"> </td>
-                    <td th:text="${carrinho.getQuantidade()}" class="text-center"></td>
-                    <td th:text="${carrinho.getProduto().getValor()}" class="text-center"></td>
-                    <td th:text="${carrinho.getTotal()}" class="text-center"></td>
+                <tr th:each="item : ${session.venda.itemVendas}">
+
+                    <td th:text="${session.venda.itemVendas.indexOf(item)}" class="text-center"></td>
+                    <td th:text="${item.getProduto().getDescricao()}" class="text-center"></td>
+                    <td th:text="${item.getQuantidade()}" class="text-center"></td>
+                    <td th:text="${item.getProduto().getValor()}" class="text-center"></td>
+                    <td th:text="${item.getTotal()}" class="text-center"></td>
+                    <td class="text-center"><a th:href="@{/vendas/session/remove/{index}(index=${session.venda.itemVendas.indexOf(item)})}"
+                                               class="btn btn-primary bg-danger border border-danger">Remover</a></td>
+                </tr>
+
+            </table>
+            <table>
+                <tr>
+                    <td colspan="5" class="text-end fw-bold">Valor Final: </td>
+                    <td class="text-center" th:text="${session.venda.getTotalFinal()}"></td>
                 </tr>
             </table>
 
-    </div>
+
+
+        </div>
 </main>
 </body>
 </html>

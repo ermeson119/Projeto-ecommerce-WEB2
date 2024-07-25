@@ -1,8 +1,8 @@
 package com.example.aula.controller;
 
-import com.example.aula.model.entity.ItemVenda;
-import com.example.aula.model.entity.Produto;
-import com.example.aula.model.entity.Venda;
+import com.example.aula.model.entity.*;
+import com.example.aula.model.repository.PessoaFisicaRepository;
+import com.example.aula.model.repository.PessoaJuridicaRepository;
 import com.example.aula.model.repository.ProdutoRepository;
 import com.example.aula.model.repository.VendaRepository;
 import jakarta.servlet.http.HttpSession;
@@ -27,38 +27,45 @@ public class VendaController {
     private VendaRepository vendaRepository;
 
     @Autowired
-    private Venda venda; //O spring vai criar o objeto na session
+    Venda venda; //O spring vai criar o objeto na session
 
     @Autowired
     private ProdutoRepository produtoRepository;
 
+
+    @Autowired
+    PessoaFisicaRepository pessoaFisicaRepository;
+
+    @Autowired
+    PessoaJuridicaRepository pessoaJuridicaRepository;
+
+
     @GetMapping("produto/add/{id}")
     public ModelAndView produtoAdd(@PathVariable("id") Long produtoId){
-        List<ItemVenda> itensVenda = venda.getItemVendas();
 
-        if (itensVenda.isEmpty()) {
+        if (venda.getItemVendas().isEmpty()) {
             Produto produto = produtoRepository.produto(produtoId);
             ItemVenda itemNovo = new ItemVenda();
             itemNovo.setProduto(produto);
             itemNovo.setQuantidade(1);
 
-            itensVenda.add(itemNovo);
             itemNovo.setVenda(venda);
+            venda.getItemVendas().add(itemNovo);
         } else {
             int cont = 0;
-            for (ItemVenda itemVenda : itensVenda) {
+            for (ItemVenda itemVenda : venda.getItemVendas()) {
                 cont++;
                 if (itemVenda.getProduto().getId().equals(produtoId)) {
                     itemVenda.setQuantidade(itemVenda.getQuantidade() + 1);
                     break;
-                } else if(itensVenda.size() == cont) { // Se chegar na ultima posição da lista, então ainda não existe
+                } else if(venda.getItemVendas().size() == cont) { // Se chegar na ultima posição da lista, então ainda não existe
                     Produto produto = produtoRepository.produto(produtoId);
                     ItemVenda itemNovo = new ItemVenda();
                     itemNovo.setProduto(produto);
                     itemNovo.setQuantidade(1);
 
-                    itensVenda.add(itemNovo);
                     itemNovo.setVenda(venda);
+                    venda.getItemVendas().add(itemNovo);
                     break;
                 }
             }
@@ -67,21 +74,33 @@ public class VendaController {
         return new ModelAndView("redirect:/produtos/area-compra");
     }
 
-    @PostMapping("/save")
-    public ModelAndView save(HttpSession session){
-        this.venda.setDataHora(LocalDate.now());
-        this.vendaRepository.save(this.venda);
+    @PostMapping ("/save")
+    public ModelAndView save(@RequestParam("pessoaId") Long id ,  HttpSession session){
+//        if (result.hasErrors()) {
+//            // Se houver erros de validação, redireciona para a página anterior com erros
+//            return new ModelAndView("nomeDaSuaPaginaDeFormulario");
+//        }
+        if(venda.getItemVendas().isEmpty()) {
+            return new ModelAndView("redirect:/produtos/area-compra");
+        }
+
+        Pessoa pessoa = buscarPessoa(id);
+        venda.setPessoa(pessoa);
+        venda.setDataHora(LocalDate.now());
+        vendaRepository.save(venda);
         session.invalidate();
-        return new ModelAndView("redirect:/vendas/carrinho-list");
+        return new ModelAndView("redirect:/vendas/list");
     }
 
 
     // - VENDAS/CARRINHO
     @GetMapping("/carrinho")
-    public String carrinholista(Venda venda, ItemVenda itemVenda){
-        return "/vendas/carrinho";
+    public ModelAndView carrinholista(ModelMap model){
+        model.addAttribute("pf", pessoaFisicaRepository.pessoaFisica());
+        model.addAttribute("pj", pessoaJuridicaRepository.pessoaJuridica());
+        model.addAttribute("itens", vendaRepository.vendas());
+        return new ModelAndView();
     }
-
 
 
     @GetMapping(path = {"", "/", "list"})
@@ -91,7 +110,7 @@ public class VendaController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView listar(@PathVariable String id, ModelMap model){
+    public ModelAndView listar(@PathVariable("id") String id, ModelMap model){
         try {
             Venda venda = vendaRepository.venda(Long.parseLong(id));
             if (venda == null) throw new RuntimeException("Object(Venda) is null");
@@ -102,5 +121,34 @@ public class VendaController {
             model.clear();
             return new ModelAndView("/vendas/list", model);
         }
+    }
+
+    @GetMapping("/session/remove/{index}")
+    public ModelAndView removeFromSession(@PathVariable("index") int index) {
+        List<ItemVenda> itemVendas = this.venda.getItemVendas();
+        ItemVenda item = itemVendas.get(index);
+
+        if (item.getQuantidade() > 1) {
+            item.setQuantidade(item.getQuantidade() - 1);
+        } else {
+            this.venda.getItemVendas().remove(index);
+        }
+
+        return new ModelAndView("redirect:/vendas/carrinho");
+    }
+
+
+    private Pessoa buscarPessoa(Long id){
+        PessoaFisica pessoaFisica = pessoaFisicaRepository.pessoaFisica(id);
+        if (pessoaFisica != null){
+            return pessoaFisica;
+        }
+
+        PessoaJuridica pessoaJuridica = pessoaJuridicaRepository.pessoaJuridica(id);
+
+        if (pessoaJuridica != null){
+            return pessoaJuridica;
+        }
+        return null;
     }
 }

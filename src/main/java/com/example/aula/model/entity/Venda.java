@@ -1,6 +1,7 @@
 package com.example.aula.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,7 @@ public class Venda  implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private java.lang.Long Id;
+    private Long Id;
     private LocalDate dataHora;
 
     @OneToMany(mappedBy = "venda",cascade = CascadeType.ALL)

@@ -1,0 +1,19 @@
+
+.margem-header{
+    margin: 1rem auto 4rem;
+
+}
+
+.ajuste{
+    flex-grow: 0;
+
+}
+
+.div-background{
+    background: #EEE;
+}
+
+.div-car-main{
+    margin: 2rem 0;
+
+}

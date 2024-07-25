@@ -1,5 +1,8 @@
 package com.example.aula.controller;
 
+import com.example.aula.model.entity.PessoaFisica;
+import com.example.aula.model.repository.PessoaFisicaRepository;
+import com.example.aula.model.repository.PessoaJuridicaRepository;
 import com.example.aula.model.repository.ProdutoRepository;
 import com.example.aula.model.entity.Produto;
 import jakarta.transaction.Transactional;
@@ -16,6 +19,7 @@ public class ProdutoController {
 
     @Autowired  //Spring fará a injeção dessa dependência no momento que o controller for criado.
     ProdutoRepository repository;
+
 
     @GetMapping("/form")
     public String form(Produto produto){
@@ -34,6 +38,13 @@ public class ProdutoController {
         return new ModelAndView("/produtos/area-compra-client");
     }
 
+    @PostMapping("/buscar")
+    public ModelAndView buscar(@RequestParam("nomebusca") String descricao, ModelMap model){
+        model.addAttribute("produtos", repository.buscarProduto(descricao));
+        return new ModelAndView("/produtos/list", model);  //caminho da view
+    }
+
+
     @PostMapping("/save")
     public ModelAndView save(Produto produto){
         repository.save(produto);
@@ -45,6 +56,12 @@ public class ProdutoController {
     public ModelAndView remove(@PathVariable("id") Long id){
         repository.remove(id);
         return new ModelAndView("redirect:/produtos/list");
+    }
+
+    @GetMapping("/remove/session/{id}")
+    public ModelAndView removeSession(@PathVariable("id") Long id){
+        repository.remove(id);
+        return new ModelAndView("redirect:/produtos/area-compra");
     }
 
 

@@ -33,7 +33,7 @@ public class PessoaJuridicaController {
 
     @PostMapping("/buscar")
     public ModelAndView buscar(@RequestParam("nomebusca") String nome, ModelMap model){
-        model.addAttribute("pessoaFisica", repository.buscarpessoaJuridica(nome));
+        model.addAttribute("pessoaJuridica", repository.buscarpessoaJuridica(nome));
         return new ModelAndView("/pessoaJuridica/list", model);  //caminho da view
     }
 

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
-<head th:replace="~{fragments/head :: head(~{})}">
-    <title>Lista de Produtos</title>
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+    <title>Lista de Pessoa Juridicas</title>
 
 </head>
 <body>
@@ -11,7 +11,7 @@
 
         <h3>Lista de Pessoa Juridicas</h3>
 
-        <form th:action="@{/pessoaJuridica/buscar}" method="post" class="d-flex" role="search">
+        <form th:action="@{/pessoaJuridica/buscar}" method="post" class="d-flex mb-3 mt-4" role="search">
             <input class="form-control me-2" th:name="nomebusca" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
@@ -23,10 +23,11 @@
                 <th class="text-center">Id</th>
                 <th class="text-center">Nome</th>
                 <th class="text-center">Telefone</th>
-                <th class="text-center">Cpf</th>
+                <th class="text-center">Cnpj</th>
                 <th colspan="2" class="text-center">Ações</th>
             </tr>
             </thead>
+
             <tr th:each="pessoajuridica : ${pessoaJuridica}">
                 <td th:text="${pessoajuridica.id}" class="text-center"> </td>
                 <td th:text="${pessoajuridica.nome}" class="text-center"> </td>
@@ -34,13 +35,13 @@
                 <td th:text="${pessoajuridica.cnpj}" class="text-center"> </td>
                 <td class="text-center"><a th:href="@{/pessoaJuridica/edit/{id}(id=${pessoajuridica.getId()})}" class="btn btn-primary">Editar</a></td>
                 <td class="text-center"> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"
-                        th:href="@{/pessoaJuridica/remove/{id}(id=${pessoajuridica.getId()})}" class="btn btn-primary">Excluir</a> </td>
+                        th:href="@{/pessoaJuridica/remove/{id}(id=${pessoajuridica.getId()})}" class="btn btn-primary bg-danger border border-danger">Excluir</a> </td>
             </tr>
 
 
         </table>
         <div class="div-button">
-            <button class="btn btn-primary"><a href="/pessoaJuridica/form" style="text-decoration: none; color: #ffffff;border: none">Adicionar pessoa Juridica</a></button>
+            <button class="btn  bg-success border border-success"><a href="/pessoaJuridica/form" style="text-decoration: none; color: #ffffff;border: none">Adicionar pessoa Juridica</a></button>
         </div>
     </div>
 </main>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
-<head th:replace="~{fragments/head :: head(~{})}">
-    <title>Lista de Produtos</title>
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+    <title>Lista de Produtos - (ADMIN)</title>
 
 </head>
 <body>
@@ -10,7 +10,7 @@
     <div class="container">
         <h3>Lista de Produtos</h3>
 
-        <form th:action="@{/produtos/buscar}" method="post" class="d-flex" role="search">
+        <form th:action="@{/produtos/buscar}" method="post" class="d-flex mb-3 mt-4" role="search">
             <input class="form-control me-2" th:name="nomebusca" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
@@ -31,12 +31,11 @@
 
                 <td class="text-center"><a th:href="@{/produtos/edit/{id}(id=${produto.id})}" class="btn btn-primary">Editar</a></td>
                 <td class="text-center"> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"
-                        th:href="@{/produtos/remove/{id}(id=${produto.id})}" class="btn btn-primary" >Excluir</a> </td>
+                        th:href="@{/produtos/remove/{id}(id=${produto.id})}" class="btn btn-primary bg-danger border border-danger" >Excluir</a> </td>
             </tr>
-
         </table>
             <div class="div-button">
-                <button class="btn btn-primary"><a href="/produtos/form" style="text-decoration: none; color:#ffffff;border: none;">Adicionar Produto</a></button>
+                <button class="btn btn-primary bg-success border border-success"><a href="/produtos/form" style="text-decoration: none; color:#ffffff;border: none;">Adicionar Produto</a></button>
             </div>
 
         </div>

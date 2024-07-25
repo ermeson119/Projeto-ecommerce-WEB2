@@ -1,5 +1,6 @@
 package com.example.aula.model.repository;
 
+import com.example.aula.model.entity.Pessoa;
 import com.example.aula.model.entity.PessoaFisica;
 import com.example.aula.model.entity.PessoaJuridica;
 import jakarta.persistence.EntityManager;
@@ -29,10 +30,18 @@ public class PessoaJuridicaRepository {
     }
 
     public List<PessoaJuridica> buscarpessoaJuridica(String nome){
-        Query query = em.createQuery("from PessoaJuridica where nome like :nome");
-        query.setParameter("nome", "%"+nome+"%");
+        String nomeFormated = nome.toLowerCase();
+        Query query = em.createQuery("from PessoaJuridica where LOWER(nome) like :nome");
+        query.setParameter("nome", "%"+nomeFormated+"%");
         return query.getResultList();
     }
+
+    public PessoaJuridica buscarPorCnpj(String cnpj) {
+        Query query = em.createQuery("from PessoaJuridica where cnpj = :cnpj");
+        query.setParameter("cnpj", cnpj);
+        return (PessoaJuridica) query.getResultList().stream().findFirst().get();
+    }
+
 
     public void remove(Long id){
         PessoaJuridica pessoaJuridica = em.find(PessoaJuridica.class, id);

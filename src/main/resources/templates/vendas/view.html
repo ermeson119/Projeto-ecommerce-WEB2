@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
-<head th:replace="~{fragments/head :: head(~{})}">
-    <title>Lista de Produtos</title>
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+    <title>Detalhes</title>
 
 </head>
 <body>
@@ -35,7 +35,7 @@
             <br>
 
 
-            <h3>Meu carrinho</h3>
+            <h3>Itens</h3>
         <table class="table" border="1" style="border-collapse: collapse">
             <thead>
             <tr>

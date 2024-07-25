@@ -3,6 +3,7 @@ package com.example.aula.model.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 
 @Entity
@@ -60,5 +61,21 @@ public class ItemVenda implements Serializable {
 
     public Double getTotal() {
         return produto.getValor().doubleValue() * this.getQuantidade();
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ItemVenda itemVenda = (ItemVenda) o;
+
+        return Objects.equals(produto, itemVenda.produto);
+    }
+
+    @Override
+    public int hashCode() {
+        return produto != null ? produto.hashCode() : 0;
     }
 }
