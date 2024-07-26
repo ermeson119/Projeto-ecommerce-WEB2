@@ -6,14 +6,14 @@ insert into produto (descricao, valor)values ('Gabinete', 200.00);
 insert into produto (descricao, valor)values ('Ps5', 5000.00);
 
 
-insert into pessoa (nome, telefone)values ('Ermeson', '63 9 81201914');
+insert into pessoa (nome, telefone)values ('Ermeson', '63981201914');
 insert into pessoa_fisica (id, cpf)values (1, '608.794.583-05');
 
-insert into pessoa (nome, telefone)values ('João Victor', '63 9 91164826');
-insert into pessoa_fisica (id, cpf)values (2, '808.753.373-07');
+insert into pessoa (nome, telefone)values ('João Victor', '63991164826');
+insert into pessoa_fisica (id, cpf)values (2, '558.879.300-55');
 
 insert into pessoa (nome, telefone)values ('TI Balbinot', '32325632');
-insert into pessoa_juridica (id, cnpj)values (3, '00153159000109');
+insert into pessoa_juridica (id, cnpj)values (3, '73.612.851/0001-69');
 
 -- /* Vendas */
 insert into venda (data_hora, pessoa_id) values ('2024-03-10', 1);

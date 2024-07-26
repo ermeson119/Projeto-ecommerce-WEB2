@@ -10,31 +10,34 @@
 <header th:replace="~{fragments/header :: header}"></header>
 <main class="conteiner" >
     <div class="container">
-    <h1>Form Pessoa PF</h1>
+        <h1>Form Pessoa PF</h1>
 
         <form class="container" th:action="${pessoaFisica.id == null} ? @{/pessoaFisica/save} : @{/pessoaFisica/update}" th:object="${pessoaFisica}" method="post">
-          <div class="mb-3 ">
-              <input type="hidden" th:field="*{id}">
-          </div>
+            <div class="mb-3 ">
+                <input type="hidden" th:field="*{id}">
+            </div>
 
-          <div class="mb-3">
-              <label for="ipuntNome" class="form-label">Nome</label>
-              <input  class="form-control" type="text" id="ipuntNome" th:field="*{nome}" placeholder="Ex: Ermeson Balbinot">
-          </div>
+            <div class="mb-3">
+                <label for="ipuntNome" class="form-label">Nome</label>
+                <input class="form-control" id="ipuntNome" type="text" th:field="*{nome}" th:errorclass="is-invalid" placeholder="Ex: Ermeson Balbinot">
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></label>
+            </div>
 
-          <div class="mb-3">
-              <label for="ipuntTelefone" class="form-label">Telefone</label>
-              <input class="form-control" type="text" id="ipuntTelefone" th:field="*{telefone}" placeholder="Ex: (63)981201914">
-          </div>
+            <div class="mb-3">
+                <label for="ipuntTelefone" class="form-label">Telefone</label>
+                <input class="form-control" id="ipuntTelefone" type="text" th:field="*{telefone}" th:errorclass="is-invalid" placeholder="Ex: (63)981201914">
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></label>
+            </div>
 
-          <div class="mb-3">
-              <label for="ipuntCpf" class="form-label">Cpf</label>
-              <input class="form-control" type="text" id="ipuntCpf" th:field="*{cpf}" placeholder="Ex: 46545646523" minlength="11" maxlength="11">
-          </div>
+            <div class="mb-3">
+                <label for="ipuntCpf" class="form-label">Cpf</label>
+                <input class="form-control" id="ipuntCpf"  type="text" th:field="*{cpf}" th:errorclass="is-invalid" placeholder="Ex: 773.388.620-10">
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></label>
+            </div>
 
-          <div class="mb-3">
-              <input class="button" type="submit" value="Enviar">
-          </div>
+            <div class="mb-3">
+                <input class="button" type="submit" value="Enviar">
+            </div>
 
         </form>
 

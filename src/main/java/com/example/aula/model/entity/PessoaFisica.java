@@ -3,6 +3,7 @@ package com.example.aula.model.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class PessoaFisica extends Pessoa implements Serializable {
+    @CPF
     private String cpf;
 
     public PessoaFisica() {

@@ -3,9 +3,11 @@ package com.example.aula.controller;
 import com.example.aula.model.entity.PessoaFisica;
 import com.example.aula.model.repository.PessoaFisicaRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,7 +37,10 @@ public class PessoaFisicaController {
     }
 
     @PostMapping("/save")
-    public ModelAndView save(PessoaFisica pessoaFisica){
+    public ModelAndView save(@Valid PessoaFisica pessoaFisica, BindingResult result){
+        if(result.hasErrors()){
+            return new ModelAndView("/pessoaFisica/form");
+        }
         repository.save(pessoaFisica);
         return new ModelAndView("redirect:/pessoaFisica/list");
     }

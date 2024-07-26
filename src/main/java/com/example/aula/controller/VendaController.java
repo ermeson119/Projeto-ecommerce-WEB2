@@ -7,10 +7,12 @@ import com.example.aula.model.repository.ProdutoRepository;
 import com.example.aula.model.repository.VendaRepository;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -75,12 +77,9 @@ public class VendaController {
     }
 
     @PostMapping ("/save")
-    public ModelAndView save(@RequestParam("pessoaId") Long id ,  HttpSession session){
-//        if (result.hasErrors()) {
-//            // Se houver erros de validação, redireciona para a página anterior com erros
-//            return new ModelAndView("nomeDaSuaPaginaDeFormulario");
-//        }
-        if(venda.getItemVendas().isEmpty()) {
+    public ModelAndView save(@Valid @RequestParam("pessoaId") Long id , HttpSession session, BindingResult result){
+
+        if(venda.getItemVendas().isEmpty() || result.hasErrors()) {
             return new ModelAndView("redirect:/produtos/area-compra");
         }
 

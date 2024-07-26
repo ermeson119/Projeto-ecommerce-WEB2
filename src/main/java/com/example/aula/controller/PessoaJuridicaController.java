@@ -5,9 +5,11 @@ import com.example.aula.model.entity.PessoaJuridica;
 import com.example.aula.model.repository.PessoaFisicaRepository;
 import com.example.aula.model.repository.PessoaJuridicaRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,7 +40,10 @@ public class PessoaJuridicaController {
     }
 
     @PostMapping("/save")
-    public ModelAndView save(PessoaJuridica pessoaJuridica){
+    public ModelAndView save(@Valid PessoaJuridica pessoaJuridica, BindingResult result){
+        if(result.hasErrors()){
+            return new ModelAndView("/pessoaJuridica/form");
+        }
         repository.save(pessoaJuridica);
         return new ModelAndView("redirect:/pessoaJuridica/list");
     }

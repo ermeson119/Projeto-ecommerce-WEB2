@@ -21,12 +21,14 @@
 
             <div class="mb-3">
                 <label for="ipuntDescricao" class="form-label">Descricao</label>
-                <input class="form-control" type="text" id="ipuntDescricao" th:field="*{descricao}" placeholder="Ex: Notebook">
+                <input class="form-control" id="ipuntDescricao" type="text" th:field="*{descricao}" th:errorclass="is-invalid" placeholder="Ex: Notebook">
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></label>
             </div>
 
             <div class="mb-3">
                 <label for="ipuntvaloralor" class="form-label">Valor</label>
-                <input class="form-control" type="text" id="ipuntvaloralor" th:field="*{valor}" placeholder="Ex: 2000.00">
+                <input class="form-control" id="ipuntvaloralor" type="text" th:field="*{valor}" th:errorclass="is-invalid" placeholder="Ex: 2000.00">
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('valor')}" th:errors="*{valor}"></label>
             </div>
 
             <div class="mb-3">

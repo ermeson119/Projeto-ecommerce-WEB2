@@ -1,6 +1,8 @@
 package com.example.aula.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,7 +14,9 @@ public abstract class Pessoa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
+    @NotBlank
     private String nome;
+    @Size(min = 8, max = 11)
     private String telefone;
 
     @OneToMany(mappedBy = "pessoa")

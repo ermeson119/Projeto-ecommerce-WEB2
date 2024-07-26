@@ -11,33 +11,36 @@
 <body>
 <main class="conteiner">
     <div class="container">
-    <h1>Form Pessoa JP</h1>
-    <form class="container" th:action="${pessoaJuridica.id == null} ? @{/pessoaJuridica/save} : @{/pessoaJuridica/update}" th:object="${pessoaJuridica}"
-          method="post">
+        <h1>Form Pessoa JP</h1>
+        <form class="container" th:action="${pessoaJuridica.id == null} ? @{/pessoaJuridica/save} : @{/pessoaJuridica/update}" th:object="${pessoaJuridica}"
+              method="post">
 
-        <div class="mb-3">
-            <input type="hidden" th:field="*{id}">
-        </div>
+            <div class="mb-3">
+                <input type="hidden" th:field="*{id}">
+            </div>
 
-        <div class="mb-3">
-            <label for="ipuntNome" class="form-label">Nome</label>
-            <input class="form-control" type="text" id="ipuntNome" th:field="*{nome}" placeholder="Ex: SPI Software">
-        </div>
+            <div class="mb-3">
+                <label for="ipuntNome" class="form-label">Nome</label>
+                <input class="form-control" id="ipuntNome" type="text" th:field="*{nome}" th:errorclass="is-invalid" placeholder="Ex: SPI Software">
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></label>
+            </div>
 
-        <div class="mb-3">
-            <label for="ipuntTelefone" class="form-label">Telefone</label>
-            <input class="form-control" type="text" id="ipuntTelefone" th:field="*{telefone}" placeholder="Ex: 32324522">
-        </div>
+            <div class="mb-3">
+                <label for="ipuntTelefone" class="form-label">Telefone</label>
+                <input class="form-control" id="ipuntTelefone" type="text" th:field="*{telefone}" th:errorclass="is-invalid" placeholder="Ex: 32324522">
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></label>
+            </div>
 
-        <div class="mb-3">
-            <label for="ipuntCnpj" class="form-label">Cnpj</label>
-            <input class="form-control" type="text" id="ipuntCnpj" th:field="*{cnpj}" placeholder="Ex: 00000000222133" minlength="14" maxlength="14">
-        </div>
+            <div class="mb-3">
+                <label for="ipuntCnpj" class="form-label">Cnpj</label>
+                <input class="form-control" id="ipuntCnpj" type="text" th:field="*{cnpj}" th:errorclass="is-invalid" placeholder="Ex: 59.883.983/0001-02">
+                <label class="invalid-feedback" th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}"></label>
+            </div>
 
-        <div class="mb-3">
-            <input class="button" type="submit" value="Enviar">
-        </div>
-    </form>
+            <div class="mb-3">
+                <input class="button" type="submit" value="Enviar">
+            </div>
+        </form>
     </div>
 
 </main>
