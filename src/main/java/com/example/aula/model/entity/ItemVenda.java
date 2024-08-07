@@ -14,7 +14,7 @@ public class ItemVenda implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Min(0)
+    @Min(1)
     private Integer quantidade;
     @ManyToOne
     private Venda venda;

@@ -4,14 +4,14 @@
 
 <head th:replace="~{fragments/head :: head(~{},~{::title})}">
 
-    <title>Produtos</title>
+    <title>Form Pessoa PJ</title>
 
 </head>
 
 <body>
 <main class="conteiner">
     <div class="container">
-        <h1>Form Pessoa JP</h1>
+        <h1>Form Pessoa PJ</h1>
         <form class="container" th:action="${pessoaJuridica.id == null} ? @{/pessoaJuridica/save} : @{/pessoaJuridica/update}" th:object="${pessoaJuridica}"
               method="post">
 

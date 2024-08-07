@@ -43,9 +43,8 @@
                     <th class="text-center">Ações</th>
                 </tr>
                 </thead>
-                <tr th:each="item : ${session.venda.itemVendas}">
-
-                    <td th:text="${session.venda.itemVendas.indexOf(item)}" class="text-center"></td>
+                <tr th:each="item, iterStat : ${session.venda.itemVendas}">
+                    <td th:text="${iterStat.index + 1}" class="text-center"></td>
                     <td th:text="${item.getProduto().getDescricao()}" class="text-center"></td>
                     <td th:text="${item.getQuantidade()}" class="text-center"></td>
                     <td th:text="${item.getProduto().getValor()}" class="text-center"></td>

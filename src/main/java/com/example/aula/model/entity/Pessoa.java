@@ -15,6 +15,7 @@ public abstract class Pessoa implements Serializable {
     @Id
     private Long id;
     @NotBlank
+    @Size(min = 2, max = 250)
     private String nome;
     @Size(min = 8, max = 11)
     private String telefone;
