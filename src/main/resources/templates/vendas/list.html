@@ -6,31 +6,48 @@
 
 </head>
 <body>
-<main class="conteiner">
+<main class="container mt-5">
     <div class="container">
-        <h3>Lista de Compras do Sistema</h3>
-        <table class="table" border="1" style="border-collapse: collapse">
-            <thead>
 
+        <form th:action="@{/vendas/buscar}" method="post" class="row g-3 mb-4" role="search">
+            <div class="col-md-5">
+                <input class="form-control" th:name="nomebusca" type="text" placeholder="Buscar por nome..." aria-label="Search">
+            </div>
+            <div class="col-md-5">
+                <input class="form-control" th:name="databusca" type="date" aria-label="Search" required>
+            </div>
+            <div class="col-md-2 d-grid">
+                <button class="btn btn-success" type="submit">Buscar</button>
+            </div>
+        </form>
+
+        <h3 class="mb-4">Lista de Compras do Sistema</h3>
+
+        <table class="table table-bordered table-hover text-center">
+            <thead class="table-primary">
             <tr>
-                <th class="text-center">Id</th>
-                <th class="text-center">Data</th>
-                <th class="text-center">ValorTotal</th>
-                <th class="text-center">detalhes</th>
-                <th class="text-center">nome</th>
+                <th>Id</th>
+                <th>Data</th>
+                <th>Valor Total</th>
+                <th>Detalhes</th>
+                <th>Nome</th>
             </tr>
             </thead>
+            <tbody>
             <tr th:each="venda : ${vendas}">
-                <td th:text="${venda.id}" class="text-center"> </td>
-                <td th:text="${venda.dataHora}" class="text-center"> </td>
-                <td th:text="${venda.getTotalFinal()}" class="text-center"> </td>
-                <td class="text-center"><a th:href="@{/vendas/{id}(id=${venda.id})}" class="btn btn-primary">detalhes</a></td>
-                <td th:text="${venda.getPessoa().nome}" class="text-center"> </td>
+                <td th:text="${venda.id}"></td>
+                <td th:text="${venda.dataHora}"></td>
+                <td th:text="${venda.getTotalFinal()}"></td>
+                <td>
+                    <a th:href="@{/vendas/{id}(id=${venda.id})}" class="btn btn-primary">Detalhes</a>
+                </td>
+                <td th:text="${venda.getPessoa().nome}"></td>
             </tr>
-
+            </tbody>
         </table>
 
     </div>
 </main>
+
 </body>
 </html>

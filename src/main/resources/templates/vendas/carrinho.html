@@ -2,68 +2,56 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
 <head th:replace="~{fragments/head :: head(~{},~{::title})}">
-    <title>Inserir Produtos ao carrinho</title>
+    <title>Inserir Produtos ao Carrinho</title>
 
 </head>
 <body>
-<main class="conteiner">
+<main class="container mt-5">
     <div class="container">
-        <h3 class="text-center">Lista de itens no Carrinho</h3>
+        <h3 class="text-center mb-4">Lista de Itens no Carrinho</h3>
 
-        <form th:action="@{/vendas/save}" class="text-center" method="post">
-
-            <select class="form-control me-2 mb-4" name="pessoaId">
-                <optgroup label="Pessoa Juridica">
-
-                    <option th:each="pessoaJuridica : ${pj}" th:value="${pessoaJuridica.id}"
-                            th:label="${pessoaJuridica.getNome()}"></option>
-
-                </optgroup>
-                <optgroup label="Pessoa Fisica">
-
-                    <option th:each="pessoaFisica : ${pf}" th:value="${pessoaFisica.id}"
-                            th:label="${pessoaFisica.getNome()}"></option>
-
-                </optgroup>
-            </select>
-            <input type="submit" class="btn btn-primary m-auto mb-4 px-4" value="Save">
-
-        </form>
+        <div class="text-center mb-4">
+            <form th:action="@{/vendas/save}" method="post">
+                <button type="submit" class="btn btn-primary px-4">Finalizar compra</button>
+            </form>
+        </div>
 
         <div class="container">
 
-            <table class="table" border="1" style="border-collapse: collapse">
-                <thead>
+            <table class="table table-bordered table-hover text-center">
+                <thead class="table-primary">
                 <tr>
-                    <th class="text-center">Index</th>
-                    <th class="text-center">Descrição</th>
-                    <th class="text-center">Quantidade</th>
-                    <th class="text-center">Valor Unitario</th>
-                    <th class="text-center">Valor Total</th>
-                    <th class="text-center">Ações</th>
+                    <th>Index</th>
+                    <th>Descrição</th>
+                    <th>Quantidade</th>
+                    <th>Valor Unitário</th>
+                    <th>Valor Total</th>
+                    <th>Ações</th>
                 </tr>
                 </thead>
+                <tbody>
                 <tr th:each="item, iterStat : ${session.venda.itemVendas}">
-                    <td th:text="${iterStat.index + 1}" class="text-center"></td>
-                    <td th:text="${item.getProduto().getDescricao()}" class="text-center"></td>
-                    <td th:text="${item.getQuantidade()}" class="text-center"></td>
-                    <td th:text="${item.getProduto().getValor()}" class="text-center"></td>
-                    <td th:text="${item.getTotal()}" class="text-center"></td>
-                    <td class="text-center"><a th:href="@{/vendas/session/remove/{index}(index=${session.venda.itemVendas.indexOf(item)})}"
-                                               class="btn btn-primary bg-danger border border-danger">Remover</a></td>
+                    <td th:text="${iterStat.index + 1}"></td>
+                    <td th:text="${item.getProduto().getDescricao()}"></td>
+                    <td th:text="${item.getQuantidade()}"></td>
+                    <td th:text="${item.getProduto().getValor()}"></td>
+                    <td th:text="${item.getTotal()}"></td>
+                    <td>
+                        <a th:href="@{/vendas/session/remove/{index}(index=${session.venda.itemVendas.indexOf(item)})}"
+                           class="btn btn-danger">Remover</a>
+                    </td>
                 </tr>
-
-            </table>
-            <table>
-                <tr>
-                    <td colspan="5" class="text-end fw-bold">Valor Final: </td>
-                    <td class="text-center" th:text="${session.venda.getTotalFinal()}"></td>
-                </tr>
+                </tbody>
             </table>
 
-
+            <div class="text-end mt-4">
+                <span class="fw-bold me-2">Valor Final:</span>
+                <span th:text="${session.venda.getTotalFinal()}"></span>
+            </div>
 
         </div>
+    </div>
 </main>
+
 </body>
 </html>

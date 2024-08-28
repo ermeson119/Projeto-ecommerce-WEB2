@@ -6,29 +6,43 @@
 
 </head>
 <body>
-<main class="conteiner">
+<main class="container mt-5">
     <div class="container">
-        <h3 class="text-center">ÁREA DE COMPRA</h3>
-            
-            <table class="table" border="1" style="border-collapse: collapse">
-                <thead>
-                <tr>
-                    <th class="text-center">Id</th>
-                    <th class="text-center">Descrição</th>
-                    <th class="text-center">Valor</th>
-                    <th colspan="2" class="text-center">Ações</th>
-                </tr>
-                </thead>
-                <tr th:each="produto : ${produtos}">
-                    <td th:text="${produto.id}" class="text-center"> </td>
-                    <td th:text="${produto.descricao}" class="text-center"> </td>
-                    <td th:text="${produto.valor}" class="text-center"> </td>
-                    <td class="text-center"><a th:href="@{/vendas/produto/add/{id}(id=${produto.id})}" class="btn btn-primary bg-success border border-success">Adicionar</a></td>
-                </tr>
-            </table>
 
+        <form th:action="@{/produtos/buscar}" method="post" class="row g-3 mb-4 align-items-center" role="search">
+            <div class="col-md-9">
+                <input class="form-control" th:name="nomebusca" type="search" placeholder="Pesquisar produtos..." aria-label="Search">
+            </div>
+            <div class="col-md-3 d-grid">
+                <button class="btn btn-success" type="submit">Buscar</button>
+            </div>
+        </form>
+
+        <h3 class="text-center mb-4">Área de Compra</h3>
+
+        <table class="table table-hover table-bordered text-center">
+            <thead class="table-primary">
+            <tr>
+                <th>Id</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="produto : ${produtos}">
+                <td th:text="${produto.id}"></td>
+                <td th:text="${produto.descricao}"></td>
+                <td th:text="${produto.valor}"></td>
+                <td>
+                    <a th:href="@{/vendas/produto/add/{id}(id=${produto.id})}" class="btn btn-success">Adicionar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
     </div>
 </main>
+
 </body>
 </html>

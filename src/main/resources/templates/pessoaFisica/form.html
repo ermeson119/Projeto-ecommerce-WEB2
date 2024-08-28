@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
       th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
 
@@ -19,19 +19,19 @@
 
             <div class="mb-3">
                 <label for="ipuntNome" class="form-label">Nome</label>
-                <input class="form-control" id="ipuntNome" type="text" th:field="*{nome}" th:errorclass="is-invalid" placeholder="Ex: Ermeson Balbinot">
+                <input class="form-control" id="ipuntNome" type="text" th:field="*{nome}" th:errorclass="is-invalid" placeholder="Ex: Ermeson Balbinot" required>
                 <label class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></label>
             </div>
 
             <div class="mb-3">
                 <label for="ipuntTelefone" class="form-label">Telefone</label>
-                <input class="form-control" id="ipuntTelefone" type="text" th:field="*{telefone}" th:errorclass="is-invalid" placeholder="Ex: (63)981201914">
+                <input class="form-control" id="ipuntTelefone" type="text" th:field="*{telefone}" th:errorclass="is-invalid" placeholder="Ex: (63)981201914" required>
                 <label class="invalid-feedback" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></label>
             </div>
 
             <div class="mb-3">
                 <label for="ipuntCpf" class="form-label">Cpf</label>
-                <input class="form-control" id="ipuntCpf"  type="text" th:field="*{cpf}" th:errorclass="is-invalid" placeholder="Ex: 773.388.620-10">
+                <input class="form-control" id="ipuntCpf"  type="text" th:field="*{cpf}" th:errorclass="is-invalid" placeholder="Ex: 773.388.620-10" required>
                 <label class="invalid-feedback" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></label>
             </div>
 

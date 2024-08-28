@@ -32,12 +32,13 @@ public class ProdutoRepository {
         em.remove(produto);
     }
 
-    public List<PessoaJuridica> buscarProduto(String descricao){
+    public List<Produto> buscarProduto(String descricao){
         String descricaoFormated = descricao.toLowerCase();
         Query query = em.createQuery("from Produto where LOWER(descricao) like :descricao");
         query.setParameter("descricao", "%"+descricaoFormated+"%");
         return query.getResultList();
     }
+
 
     public void removeSession(Long id){
         Produto produto = em.find(Produto.class, id);

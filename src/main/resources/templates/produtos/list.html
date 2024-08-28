@@ -6,39 +6,50 @@
 
 </head>
 <body>
-<main class="conteiner">
+<main class="container mt-5">
     <div class="container">
-        <h3>Lista de Produtos</h3>
+        <h3 class="text-center mb-4">Lista de Produtos</h3>
 
-        <form th:action="@{/produtos/buscar}" method="post" class="d-flex mb-3 mt-4" role="search">
-            <input class="form-control me-2" th:name="nomebusca" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+        <form th:action="@{/produtos/buscar-produto}" method="post" class="row g-3 mb-4" role="search">
+            <div class="col-md-10">
+                <input class="form-control" th:name="nomebusca" type="search" placeholder="Buscar produtos..." aria-label="Search">
+            </div>
+            <div class="col-md-2 d-grid">
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </div>
         </form>
 
-        <table class="table" border="1" style="border-collapse: collapse">
-            <thead>
+        <table class="table table-bordered table-hover text-center">
+            <thead class="table-primary">
             <tr>
-                <th class="text-center">Id</th>
-                <th class="text-center">Descrição</th>
-                <th class="text-center">Valor</th>
-                <th colspan="2" class="text-center">Ações</th>
+                <th>Id</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th colspan="2">Ações</th>
             </tr>
             </thead>
+            <tbody>
             <tr th:each="produto : ${produtos}">
-                <td th:text="${produto.id}" class="text-center"> </td>
-                <td th:text="${produto.descricao}" class="text-center"> </td>
-                <td th:text="${produto.valor}" class="text-center"> </td>
-
-                <td class="text-center"><a th:href="@{/produtos/edit/{id}(id=${produto.id})}" class="btn btn-primary">Editar</a></td>
-                <td class="text-center"> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"
-                        th:href="@{/produtos/remove/{id}(id=${produto.id})}" class="btn btn-primary bg-danger border border-danger" >Excluir</a> </td>
+                <td th:text="${produto.id}"></td>
+                <td th:text="${produto.descricao}"></td>
+                <td th:text="${produto.valor}"></td>
+                <td>
+                    <a th:href="@{/produtos/edit/{id}(id=${produto.id})}" class="btn btn-primary">Editar</a>
+                </td>
+                <td>
+                    <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"
+                       th:href="@{/produtos/remove/{id}(id=${produto.id})}" class="btn btn-danger">Excluir</a>
+                </td>
             </tr>
+            </tbody>
         </table>
-            <div class="div-button">
-                <button class="btn btn-primary bg-success border border-success"><a href="/produtos/form" style="text-decoration: none; color:#ffffff;border: none;">Adicionar Produto</a></button>
-            </div>
 
+        <div class="text-center mt-4">
+            <a href="/produtos/form" class="btn btn-success">Adicionar Produto</a>
         </div>
+
+    </div>
 </main>
+
 </body>
 </html>

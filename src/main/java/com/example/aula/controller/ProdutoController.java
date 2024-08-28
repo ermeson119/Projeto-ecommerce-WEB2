@@ -14,6 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Transactional // gerencia a transações.
 @Controller
 @RequestMapping("/produtos")
@@ -42,8 +44,17 @@ public class ProdutoController {
 
     @PostMapping("/buscar")
     public ModelAndView buscar(@RequestParam("nomebusca") String descricao, ModelMap model){
+
+        model.addAttribute("produtos", repository.buscarProduto(descricao));
+        return new ModelAndView("/produtos/area-compra-client", model);  //caminho da view
+
+    }
+    @PostMapping("/buscar-produto")
+    public ModelAndView buscarProduto(@RequestParam("nomebusca") String descricao, ModelMap model){
+
         model.addAttribute("produtos", repository.buscarProduto(descricao));
         return new ModelAndView("/produtos/list", model);  //caminho da view
+
     }
 
 

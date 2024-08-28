@@ -21,19 +21,19 @@
 
             <div class="mb-3">
                 <label for="ipuntNome" class="form-label">Nome</label>
-                <input class="form-control" id="ipuntNome" type="text" th:field="*{nome}" th:errorclass="is-invalid" placeholder="Ex: SPI Software">
+                <input class="form-control" id="ipuntNome" type="text" th:field="*{nome}" th:errorclass="is-invalid" placeholder="Ex: SPI Software" required>
                 <label class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></label>
             </div>
 
             <div class="mb-3">
                 <label for="ipuntTelefone" class="form-label">Telefone</label>
-                <input class="form-control" id="ipuntTelefone" type="text" th:field="*{telefone}" th:errorclass="is-invalid" placeholder="Ex: 32324522">
+                <input class="form-control" id="ipuntTelefone" type="text" th:field="*{telefone}" th:errorclass="is-invalid" placeholder="Ex: 32324522" required>
                 <label class="invalid-feedback" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></label>
             </div>
 
             <div class="mb-3">
                 <label for="ipuntCnpj" class="form-label">Cnpj</label>
-                <input class="form-control" id="ipuntCnpj" type="text" th:field="*{cnpj}" th:errorclass="is-invalid" placeholder="Ex: 59.883.983/0001-02">
+                <input class="form-control" id="ipuntCnpj" type="text" th:field="*{cnpj}" th:errorclass="is-invalid" placeholder="Ex: 59.883.983/0001-02" required>
                 <label class="invalid-feedback" th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}"></label>
             </div>
 

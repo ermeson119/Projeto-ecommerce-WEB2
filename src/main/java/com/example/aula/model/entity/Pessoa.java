@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Pessoa implements Serializable {
+public class Pessoa implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -25,6 +25,12 @@ public abstract class Pessoa implements Serializable {
 
     public Pessoa() {
 
+    }
+
+    public Pessoa(String nome, String telefone) {
+        this.id = id;
+        this.nome = nome;
+        this.telefone = telefone;
     }
 
     public Pessoa(Long id, String nome, String telefone) {
@@ -64,5 +70,6 @@ public abstract class Pessoa implements Serializable {
     public void setVendas(List<Venda> vendas) {
         this.vendas = vendas;
     }
+
 
 }

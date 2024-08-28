@@ -1,15 +1,15 @@
 package com.example.aula.controller;
 
 import com.example.aula.model.entity.*;
-import com.example.aula.model.repository.PessoaFisicaRepository;
-import com.example.aula.model.repository.PessoaJuridicaRepository;
-import com.example.aula.model.repository.ProdutoRepository;
-import com.example.aula.model.repository.VendaRepository;
+import com.example.aula.model.repository.*;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,8 @@ public class VendaController {
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     PessoaFisicaRepository pessoaFisicaRepository;
@@ -76,21 +79,20 @@ public class VendaController {
     }
 
 
-
-
-
     @PostMapping ("/save")
-    public ModelAndView save(@RequestParam("pessoaId") Long id , HttpSession session){
+    public ModelAndView save(HttpSession session){
 
         if(venda.getItemVendas().isEmpty()) {
             return new ModelAndView("redirect:/produtos/area-compra");
         }
 
-        Pessoa pessoa = buscarPessoa(id);
+        UserDetails current = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Pessoa pessoa = usuarioRepository.findByNome(current.getUsername()).getPessoa();
         venda.setPessoa(pessoa);
         venda.setDataHora(LocalDate.now());
         vendaRepository.save(venda);
-        session.invalidate();
+        session.removeAttribute("venda");
         return new ModelAndView("redirect:/vendas/list");
     }
 
@@ -107,7 +109,16 @@ public class VendaController {
 
     @GetMapping(path = {"", "/", "list"})
     public ModelAndView listar(ModelMap model){
-        model.addAttribute("vendas", vendaRepository.vendas());
+        UserDetails current = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Usuario user = usuarioRepository.findByNome(current.getUsername());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if(auth.getAuthorities().stream().findFirst().get().getAuthority().equals("ROLE_ADMIN")) {
+            model.addAttribute("vendas", vendaRepository.vendas());
+            return new ModelAndView("/vendas/list", model);
+        }
+
+        model.addAttribute("vendas", user.getPessoa().getVendas());
         return new ModelAndView("/vendas/list", model);
     }
 
@@ -138,6 +149,30 @@ public class VendaController {
 
         return new ModelAndView("redirect:/vendas/carrinho");
     }
+
+
+
+    @PostMapping("/buscar")
+    public ModelAndView listarDate(@RequestParam("nomebusca") String nome,
+                                   @RequestParam("databusca") LocalDate data, ModelMap model){
+
+        List<Venda> vendas = vendaRepository.vendas();
+
+        if (!nome.equals("")){
+            vendas = vendaRepository.findByNome(nome);
+        }
+
+        if(data != null){
+            vendas = vendas.stream()
+                    .filter(v -> v.getDataHora().equals(data))
+                    .toList(); //Para cada venda onde a dataHora for igual a 'data' passada pelo parametro do metodo.
+        }
+
+        model.addAttribute("vendas", vendas);
+        return new ModelAndView("/vendas/list", model);
+    }
+
+
 
 
     private Pessoa buscarPessoa(Long id){

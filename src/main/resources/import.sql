@@ -40,4 +40,11 @@ insert into item_venda (quantidade, produto_id, venda_id) values (3, 5, 3);
 
 insert into item_venda (quantidade, produto_id, venda_id) values (2, 2, 4);
 
+insert into role (nome) values ('ROLE_ADMIN');
+insert into role (nome) values ('ROLE_USER');
 
+insert into usuario (pessoa_id, username, password) values (1, 'Ermeson', '$2a$10$q8Nph97Tlvuli8mW/rkD/eutMqnEHB0eStyf2px3GnQWKI3JBCUWK');
+insert into usuario (pessoa_id, username, password) values (3, 'TI Balbinot', '$2a$10$Lqdi9O/MCO8Td4MDQkR.Ce9VUXuOiCLk9LUNsp7aJqSXnTQh004t6');
+
+insert into usuario_roles (roles_id, usuarios_id) values (1, 1);
+insert into usuario_roles (roles_id, usuarios_id) values (2, 2);

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+    <title>Acesso Restrito</title>
+
+</head>
+
+<header th:replace="~{fragments/header :: header}"></header>
+
+<body class="bg-light">
+<main class="container d-flex justify-content-center align-items-center min-vh-80">
+    <div class="alert alert-danger text-center shadow-lg p-5">
+        <h1 class="mb-4"><i class="bi bi-exclamation-triangle-fill"></i> Acesso Restrito</h1>
+        <p class="fs-5">Você não possui permissão de administrador para acessar esta área.</p>
+        <a th:href="@{/produtos/area-compra}" class="btn btn-primary mt-3"><i class="bi bi-arrow-left"></i> Voltar para a área de compra</a>
+    </div>
+</main>
+
+
+</body>
+</html>
